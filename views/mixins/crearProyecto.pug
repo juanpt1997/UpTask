@@ -1,0 +1,12 @@
+//- Con este mixin queremos que se pueda utilizar la misma vista para crear y editar
+mixin crearProyecto(proyecto = {}, errores = {})
+    //- El action va a depender de si viene un proyecto o no
+    form.agregar-proyecto(action=`/nuevo-proyecto/${proyecto.id || ''}` method="post")
+        .campo
+            label(for="nombre") Nombre Proyecto:
+            input#nombre(value=proyecto.nombre type="text" name="nombre" placeholder="Nombre Proyecto")
+        .campo.enviar
+            input(type="submit" value=`${proyecto.nombre ? 'Guardar' : 'Agregar'}` class="boton")
+        if errores 
+            each error in errores
+                .error #{error.texto}
